@@ -14,36 +14,13 @@
         </ul>
     </nav>
 
-    <h1 class="page-heading"><i>Maximum sum Counter</i></h1>
+    <h1 class="page-heading"><i>Maximum Sum Counter</i></h1>
     
     <div class="form-container">
-        <form id="housingLoanForm">
 
-            <div class="form-group">
-                <label for="housingPrice">Housing price</label>
-                <input type="number" id="housingPrice" name="housingPrice" >
-            </div>
-
+        <form id="max_sum_count">
 
             <div class="inline-input">
-                <div class="form-group">
-                    <label for="initialPayment">Initial Payment €</label>
-                    <input type="number" id="initialPayment" name="initialPayment" >
-                </div>
-
-                <div class="form-group">
-                    <label for="initialPaymentPercentage">Initial Payment %</label>
-                    <input type="number" id="initialPaymentPercentage" name="initialPaymentPercentage" >
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="loanTerm">Loan Term (Years)</label>
-                <input type="number" id="loanTerm" name="loanTerm" >
-            </div>
-
-            <div class="inline-input">
-
                 <div class="form-group">
                     <label for="interestRate">Interest Rate</label>
                     <input  id="interestRate" name="interestRate"  >
@@ -55,9 +32,41 @@
                 </div>
             </div>
 
+              <div class="form-group">
+                    <label for="loan_term">Loan term (years)</label>
+                    <input type="number" id="loan_term" name="loan_term" >
+                </div>
+
+            <div class="inline-input">
+                <div class="form-group">
+                    <label for="household_income">Household income €</label>
+                    <input type="number" id="household_income" name="household_income" >
+                </div>
+                
+                <div class="form-group">
+                    <label for="household_obligations">Household obligations €</label>
+                    <input type="number" id="household_obligations" name="household_obligations" >
+                </div>
+
+            </div>      
+            
             <div class="form-group">
-                <button class="submit-button" onclick="calculateLoan()">Calculate</button>
+                <label for="min_livelihood_income">Minimum livelihood income €</label>
+                <input type="number" id="min_livelihood_income" name="min_livelihood_income" >
             </div>
+            
+            <div class="inline-input">
+
+             <div class="form-group">
+                 <label for="max_dti">Maximum DTI</label>
+                 <input type="number" id="max_dti" name="max_dti" >
+             </div>
+             
+             <div class="form-group">
+                 <button class="submit-button" onclick="calculateMaxSum()">Calculate</button>
+                </div>
+                
+                </div>
 
         </form>
     </div>
@@ -67,22 +76,9 @@
         <button class="close-button" onclick="closeResult()">X</button>
 
             <div class="result-group">
-                <h3 class="result-heading">Preliminary Monthly Payment</h3>
-                <h2 class="monthly-sum-heading" id="preliminary_monthly_cost"></h2>
+                <h3 class="result-heading">Preliminary Max Loan: </h3>
+                <h2 class="monthly-sum-heading" id="preliminary_max_loan"></h2>
             </div>  
-
-        <div class="result-inline-container">
-            <div class="result-group">
-                <h3>Loan sum</h3>
-                <h3 id="loan_sum"></h3>
-            </div>
-
-            <div class="result-group">
-                <h3>Full paid sum</h3>
-                <h3 id="total_loan_cost"></h3>
-            </div>
-        </div> 
-        
     </div>
 
     <div class="opacity-container" id="opacity_container"></div>
