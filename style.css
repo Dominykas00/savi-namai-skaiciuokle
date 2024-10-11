@@ -167,3 +167,9 @@ nav {
   margin-bottom: 12px;
   text-align: center;
 }
+
+
+.radio-label{
+  display: flex;
+  align-items: center;
+}

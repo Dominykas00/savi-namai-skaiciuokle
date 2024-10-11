@@ -37,16 +37,37 @@ function closeResult() {
   document.getElementById("opacity_container").style.display = "none";
 }
 
+
+
 function calculateMaxSum() {
   let euribor = parseFloat(document.getElementById("euribor").value);
   let interestRate = parseFloat(document.getElementById("interestRate").value);
   let loanTerm = parseFloat(document.getElementById("loan_term").value);
   let householdIncome = parseFloat(document.getElementById("household_income").value);
   let householdObligations = parseFloat(document.getElementById("household_obligations").value);
-  let houseHoldLivelihoodCosts = parseFloat(document.getElementById("min_livelihood_income").value);
   let maxDTI = parseFloat(document.getElementById("max_dti").value);
+  let numberOfDependance = parseFloat(document.getElementById("dependance_number").value);
+  const isMarriedRadios = document.getElementsByName('radio-val');
+  let maritalStatus = null;
   event.preventDefault();
+  
+  for (const radio of isMarriedRadios) {
+    if (radio.checked) {
+      maritalStatus = radio.value;
+      break;
+    }
+  }
+  let houseHoldLivelihoodCosts = 360;
+  
+  if (maritalStatus == 'true'){
+    numberOfDependance ++
+  }
 
+  if(numberOfDependance > 0){
+    houseHoldLivelihoodCosts = calculateLivelihoodCosts(houseHoldLivelihoodCosts, numberOfDependance)
+  }
+  
+  console.log('is married:' + maritalStatus + " number of dependance: " + numberOfDependance + "house Hold Livelihood Costs:" + houseHoldLivelihoodCosts)
   
   let balanceAfterExpenses = householdIncome - householdObligations - houseHoldLivelihoodCosts;
   let numberOfPayments = loanTerm * 12;
@@ -55,8 +76,22 @@ function calculateMaxSum() {
   const maxMonthlyPayment = calculateMaxMonthlyPayment(householdIncome, householdObligations, maxDTI, balanceAfterExpenses);
   const preliminaryMaxLoanSum = calculatePreliminaryMaxLoanSum(monthlyInterestRate, numberOfPayments, maxMonthlyPayment);
   
-  
   showMaxLoanSumResult(preliminaryMaxLoanSum);
+}
+
+function calculateLivelihoodCosts(houseHoldLivelihoodCosts, numberOfDependance) {
+
+  if (numberOfDependance > 2) {
+    numberOfDependance--;
+    let otherDependance = 108 * numberOfDependance
+    return houseHoldLivelihoodCosts +=  180 + otherDependance
+  }
+  else if (numberOfDependance === 1) {
+    return houseHoldLivelihoodCosts += 180;
+  }
+  else if(numberOfDependance === 2) {
+    return houseHoldLivelihoodCosts += 180 + 108;
+  }
 
 }
 

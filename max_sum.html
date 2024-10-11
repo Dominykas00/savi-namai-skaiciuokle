@@ -1,87 +1,171 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Housing loan Calculator</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js"></script>
+	<title>Housing loan Calculator</title>
+	<link
+		rel="stylesheet"
+		type="text/css"
+		href="style.css"
+	>
+	<script src="script.js"></script>
 </head>
+
 <body>
-    <nav class="navigation">
-        <h1 class="no-margin nav-heading">Housing Loan Calculator</h1>
-        <ul class="nav-list">
-            <li><a href="monthly.html">Monthly Payment Counter</a></li>
-            <li><a href="max_sum.html">Max sum Counter</a></li>
-        </ul>
-    </nav>
+	<nav class="navigation">
+		<h1 class="no-margin nav-heading">Housing Loan Calculator</h1>
+		<ul class="nav-list">
+			<li><a href="monthly.html">Monthly Payment Counter</a></li>
+			<li><a href="max_sum.html">Max sum Counter</a></li>
+		</ul>
+	</nav>
 
-    <h1 class="page-heading"><i>Maximum Sum Counter</i></h1>
-    
-    <div class="form-container">
+	<h1 class="page-heading"><i>Maximum Sum Counter</i></h1>
 
-        <form id="max_sum_count">
+	<div class="form-container">
 
-            <div class="inline-input">
-                <div class="form-group">
-                    <label for="interestRate">Interest Rate</label>
-                    <input  id="interestRate" name="interestRate"  >
-                </div>
+		<form id="max_sum_count">
 
-                <div class="form-group">
-                    <label for="euribor">Euribor</label>
-                    <input  id="euribor" name="euribor" >
-                </div>
-            </div>
+			<div class="form-group radio">
+				<label for="radio">Your monthly income is for:</label>
 
-              <div class="form-group">
-                    <label for="loan_term">Loan term (years)</label>
-                    <input type="number" id="loan_term" name="loan_term" >
-                </div>
+				<label class="radio-label">
+					<input
+						type="radio"
+						name="radio-val"
+						value=false
+						id="radio-single"
+						checked
+					>
+					Only me
+				</label>
+				<label class="radio-label">
+					<input
+						type="radio"
+						name="radio-val"
+						value=true
+						id="radio-married"
+					>
+					Myself & spouse
+				</label>
+			</div>
 
-            <div class="inline-input">
-                <div class="form-group">
-                    <label for="household_income">Household income €</label>
-                    <input type="number" id="household_income" name="household_income" >
-                </div>
-                
-                <div class="form-group">
-                    <label for="household_obligations">Household obligations €</label>
-                    <input type="number" id="household_obligations" name="household_obligations" >
-                </div>
+			<div class="inline-input">
+				<div class="form-group">
+					<label for="dependance_number">Number of dependents</label>
+					<input
+						value="0"
+						type="number"
+						id="dependance_number"
+						name="dependance_number"
+					>
+				</div>
+				<div class="form-group">
+					<label for="loan_term">Loan term (years)</label>
+					<input
+						type="number"
+						id="loan_term"
+						name="loan_term"
+					>
+				</div>
+			</div>
 
-            </div>      
-            
-            <div class="form-group">
-                <label for="min_livelihood_income">Minimum livelihood income €</label>
-                <input type="number" id="min_livelihood_income" name="min_livelihood_income" >
-            </div>
-            
-            <div class="inline-input">
+			<div class="inline-input">
+				<div class="form-group">
+					<label for="interestRate">Interest Rate</label>
+					<input
+						id="interestRate"
+						name="interestRate"
+					>
+				</div>
 
-             <div class="form-group">
-                 <label for="max_dti">Maximum DTI</label>
-                 <input type="number" id="max_dti" name="max_dti" >
-             </div>
-             
-             <div class="form-group">
-                 <button class="submit-button" onclick="calculateMaxSum()">Calculate</button>
-                </div>
-                
-                </div>
-
-        </form>
-    </div>
+				<div class="form-group">
+					<label for="euribor">Euribor</label>
+					<input
+						id="euribor"
+						name="euribor"
+					>
+				</div>
+			</div>
 
 
-    <div class="result-pop-up" id="result_pop_up">
-        <button class="close-button" onclick="closeResult()">X</button>
+			<div class="inline-input">
+				<div class="form-group">
+					<label for="household_income">Household income €</label>
+					<input
+						type="number"
+						id="household_income"
+						name="household_income"
+					>
+				</div>
 
-            <div class="result-group">
-                <h3 class="result-heading">Preliminary Max Loan: </h3>
-                <h2 class="monthly-sum-heading" id="preliminary_max_loan"></h2>
-            </div>  
-    </div>
+				<div class="form-group">
+					<label for="household_obligations">Household obligations €</label>
+					<input
+						type="number"
+						id="household_obligations"
+						name="household_obligations"
+					>
+				</div>
 
-    <div class="opacity-container" id="opacity_container"></div>
+			</div>
+
+			<!-- <div class="form-group">
+				<label for="min_livelihood_income">Minimum livelihood income €</label>
+				<input
+					type="number"
+					id="min_livelihood_income"
+					name="min_livelihood_income"
+				>
+			</div> -->
+
+			<div class="inline-input">
+
+				<div class="form-group">
+					<label for="max_dti">Maximum DTI</label>
+					<input
+						type="number"
+						id="max_dti"
+						name="max_dti"
+					>
+				</div>
+
+				<div class="form-group">
+					<button
+						class="submit-button"
+						onclick="calculateMaxSum()"
+					>Calculate</button>
+				</div>
+
+			</div>
+
+		</form>
+	</div>
+
+
+	<div
+		class="result-pop-up"
+		id="result_pop_up"
+	>
+		<button
+			class="close-button"
+			onclick="closeResult()"
+		>X</button>
+
+		<div class="result-group">
+			<h3 class="result-heading">Preliminary Max Loan: </h3>
+			<h2
+				class="monthly-sum-heading"
+				id="preliminary_max_loan"
+			></h2>
+		</div>
+	</div>
+
+	<div
+		class="opacity-container"
+		id="opacity_container"
+	></div>
 
 </body>
+
 </html>
