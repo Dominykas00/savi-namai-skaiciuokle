@@ -97,8 +97,11 @@ function calculateLivelihoodCosts(houseHoldLivelihoodCosts, numberOfDependance) 
 
 function calculateMaxMonthlyPayment(householdIncome, householdObligations, maxDTI, balanceAfterExpenses) {  
   // Calculate the maximum payment based on DTI
-  const maxPaymentDTI = (householdIncome - householdObligations) * (maxDTI / 100);
-    
+  // const maxPaymentDTI = (householdIncome - householdObligations) * (maxDTI / 100);
+  const maxPaymentDTI = (householdIncome * (maxDTI / 100)) - householdObligations
+  console.log(maxPaymentDTI)
+  console.log(balanceAfterExpenses)
+
   return Math.min(maxPaymentDTI, balanceAfterExpenses);
 }
 
