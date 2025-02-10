@@ -22,62 +22,30 @@
     </ul>
   </nav>
 
-  <h1 class="page-heading"><i>Maximum Sum Counter</i></h1>
+  <h1 class="page-heading"><i>Refinance Calculator</i></h1>
 
   <div class="form-container">
 
-    <form id="max_sum_count">
+    <form id="ref_count">
 
-      <div class="form-group radio">
-        <label for="radio">Your monthly income is for:</label>
+      <div class="inline-input">
+        <div class="form-group">
+          <label for="current_loan_amount">Current Loan</label>
+          <input
+            type="number"
+            id="current_loan_amount"
+            name="current_loan_amount"
+          >
+        </div>
 
-        <label class="radio-label">
-          <input
-            type="radio"
-            name="radio-val"
-            value=false
-            id="radio-single"
-            checked
-          >
-          Only me
-        </label>
-        <label class="radio-label">
-          <input
-            type="radio"
-            name="radio-val"
-            value=true
-            id="radio-married"
-          >
-          Myself & spouse
-        </label>
       </div>
 
       <div class="inline-input">
         <div class="form-group">
-          <label for="dependance_number">Number of dependents</label>
+          <label for="interest_rate">Interest Rate</label>
           <input
-            value="0"
-            type="number"
-            id="dependance_number"
-            name="dependance_number"
-          >
-        </div>
-        <div class="form-group">
-          <label for="loan_term">Loan term (years)</label>
-          <input
-            type="number"
-            id="loan_term"
-            name="loan_term"
-          >
-        </div>
-      </div>
-
-      <div class="inline-input">
-        <div class="form-group">
-          <label for="interestRate">Interest Rate</label>
-          <input
-            id="interestRate"
-            name="interestRate"
+            id="interest_rate"
+            name="interest_rate"
           >
         </div>
 
@@ -90,26 +58,43 @@
         </div>
       </div>
 
+      <div class="inline-input">
+        <div class="form-group">
+          <label for="loan_term">Loan duration (years) </label>
+          <input
+            type="number"
+            id="loan_term"
+            name="loan_term"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="years_passed">Years passed</label>
+          <input
+            type="number"
+            id="years_passed"
+            name="years_passed"
+          >
+        </div>
+      </div>
 
       <div class="inline-input">
         <div class="form-group">
-          <label for="household_income">Household income €</label>
+          <label for="new_loan_term">New Loan duration (years) </label>
           <input
             type="number"
-            id="household_income"
-            name="household_income"
+            id="new_loan_term"
+            name="new_loan_term"
           >
         </div>
 
         <div class="form-group">
-          <label for="household_obligations">Household obligations €</label>
+          <label for="new_interest_rate">New Interest Rate</label>
           <input
-            type="number"
-            id="household_obligations"
-            name="household_obligations"
+            id="new_interest_rate"
+            name="new_interest_rate"
           >
         </div>
-
       </div>
 
       <!-- <div class="form-group">
@@ -122,23 +107,16 @@
 			</div> -->
 
       <div class="inline-input">
-
-        <div class="form-group">
-          <label for="max_dti">Maximum DTI</label>
-          <input
-            type="number"
-            id="max_dti"
-            name="max_dti"
-          >
-        </div>
-
+      
         <div class="form-group">
           <button
+            type="submit"
             class="submit-button"
-            onclick="calculateLoan()"
-          >Calculate</button>
+            onclick="calcRefinance()"
+          >
+            Calculate
+          </button>
         </div>
-
 
       </div>
 

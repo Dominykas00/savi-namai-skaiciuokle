@@ -1,91 +1,137 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Housing loan Calculator</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js"></script>
+  <title>Housing loan Calculator</title>
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="style.css"
+  >
+  <script src="script.js"></script>
 </head>
+
 <body>
-    <nav class="navigation">
-        <h1 class="no-margin nav-heading">Housing Loan Calculator</h1>
-        <ul class="nav-list">
-            <li><a href="monthly.html">Monthly Payment Counter</a></li>
-            <li><a href="max_sum.html">Max sum Counter</a></li>
-        </ul>
-    </nav>
+  <nav class="navigation">
+    <h1 class="no-margin nav-heading">Housing Loan Calculator</h1>
+    <ul class="nav-list">
+      <li><a href="monthly.html">Monthly Payment Counter</a></li>
+      <li><a href="max_sum.html">Max sum Counter</a></li>
+      <li><a href="refinance.html">Refinance Counter</a></li>
 
-    <h1 class="page-heading"><i>Monthly Payment</i></h1>
-    
-    <div class="form-container">
-        <form id="housingLoanForm">
+    </ul>
+  </nav>
 
-            <div class="form-group">
-                <label for="housingPrice">Housing price</label>
-                <input type="number" id="housingPrice" name="housingPrice" >
-            </div>
+  <h1 class="page-heading"><i>Monthly Payment</i></h1>
+
+  <div class="form-container">
+    <form id="housingLoanForm">
+
+      <div class="form-group">
+        <label for="housingPrice">Housing price</label>
+        <input
+          type="number"
+          id="housingPrice"
+          name="housingPrice"
+        >
+      </div>
 
 
-            <div class="inline-input">
-                <div class="form-group">
-                    <label for="initialPayment">Initial Payment €</label>
-                    <input type="number" id="initialPayment" name="initialPayment" >
-                </div>
+      <div class="inline-input">
+        <div class="form-group">
+          <label for="initialPayment">Initial Payment €</label>
+          <input
+            type="number"
+            id="initialPayment"
+            name="initialPayment"
+          >
+        </div>
 
-                <div class="form-group">
-                    <label for="initialPaymentPercentage">Initial Payment %</label>
-                    <input type="number" id="initialPaymentPercentage" name="initialPaymentPercentage" >
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="initialPaymentPercentage">Initial Payment %</label>
+          <input
+            type="number"
+            id="initialPaymentPercentage"
+            name="initialPaymentPercentage"
+          >
+        </div>
+      </div>
 
-            <div class="form-group">
-                <label for="loanTerm">Loan Term (Years)</label>
-                <input type="number" id="loanTerm" name="loanTerm" >
-            </div>
+      <div class="form-group">
+        <label for="loanTerm">Loan Term (Years)</label>
+        <input
+          type="number"
+          id="loanTerm"
+          name="loanTerm"
+        >
+      </div>
 
-            <div class="inline-input">
+      <div class="inline-input">
 
-                <div class="form-group">
-                    <label for="interestRate">Interest Rate</label>
-                    <input  id="interestRate" name="interestRate"  >
-                </div>
+        <div class="form-group">
+          <label for="interestRate">Interest Rate</label>
+          <input
+            id="interestRate"
+            name="interestRate"
+          >
+        </div>
 
-                <div class="form-group">
-                    <label for="euribor">Euribor</label>
-                    <input  id="euribor" name="euribor" >
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="euribor">Euribor</label>
+          <input
+            id="euribor"
+            name="euribor"
+          >
+        </div>
+      </div>
 
-            <div class="form-group">
-                <button class="submit-button" onclick="calculateLoan()">Calculate</button>
-            </div>
+      <div class="form-group">
+        <button
+          class="submit-button"
+          onclick="calculateLoan()"
+        >Calculate</button>
+      </div>
 
-        </form>
+    </form>
+  </div>
+
+
+  <div
+    class="result-pop-up"
+    id="result_pop_up"
+  >
+    <button
+      class="close-button"
+      onclick="closeResult()"
+    >X</button>
+
+    <div class="result-group">
+      <h3 class="result-heading">Preliminary Monthly Payment</h3>
+      <h2
+        class="monthly-sum-heading"
+        id="preliminary_monthly_cost"
+      ></h2>
     </div>
 
+    <div class="result-inline-container">
+      <div class="result-group">
+        <h3>Loan sum</h3>
+        <h3 id="loan_sum"></h3>
+      </div>
 
-    <div class="result-pop-up" id="result_pop_up">
-        <button class="close-button" onclick="closeResult()">X</button>
-
-            <div class="result-group">
-                <h3 class="result-heading">Preliminary Monthly Payment</h3>
-                <h2 class="monthly-sum-heading" id="preliminary_monthly_cost"></h2>
-            </div>  
-
-        <div class="result-inline-container">
-            <div class="result-group">
-                <h3>Loan sum</h3>
-                <h3 id="loan_sum"></h3>
-            </div>
-
-            <div class="result-group">
-                <h3>Full paid sum</h3>
-                <h3 id="total_loan_cost"></h3>
-            </div>
-        </div> 
-        
+      <div class="result-group">
+        <h3>Full paid sum</h3>
+        <h3 id="total_loan_cost"></h3>
+      </div>
     </div>
 
-    <div class="opacity-container" id="opacity_container"></div>
+  </div>
+
+  <div
+    class="opacity-container"
+    id="opacity_container"
+  ></div>
 
 </body>
+
 </html>

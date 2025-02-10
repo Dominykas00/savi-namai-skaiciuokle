@@ -1,4 +1,5 @@
 function calculateLoan() {
+  event.preventDefault();
   let housingPrice = parseFloat(document.getElementById("housingPrice").value);
   let initialPayment = parseFloat(document.getElementById("initialPayment").value);
   let initialPaymentPercentage = parseFloat(document.getElementById("initialPaymentPercentage").value);
@@ -6,7 +7,6 @@ function calculateLoan() {
   let interestRate = parseFloat(document.getElementById("interestRate").value);
   let euribor = parseFloat(document.getElementById("euribor").value);
   
-  event.preventDefault();
   let [monthlyPayment, loanAmount, totalAmountPaid] = calculatePMT(housingPrice, initialPayment, loanTerm, interestRate, euribor);  
 
   showResult(monthlyPayment, loanAmount, totalAmountPaid);
@@ -49,7 +49,9 @@ function calculateMaxSum() {
   let numberOfDependance = parseFloat(document.getElementById("dependance_number").value);
   const isMarriedRadios = document.getElementsByName('radio-val');
   let maritalStatus = null;
+  
   event.preventDefault();
+
   
   for (const radio of isMarriedRadios) {
     if (radio.checked) {
@@ -117,4 +119,98 @@ function showMaxLoanSumResult(preliminaryMaxLoanSum) {
   document.getElementById("preliminary_max_loan").innerHTML = preliminaryMaxLoanSum.toFixed(2) + " €";
   document.getElementById("result_pop_up").style.display = "flex";
   document.getElementById("opacity_container").style.display = "block";
+}
+
+function getRefinanceData() {
+  let currentLoanAmount = parseFloat(document.getElementById("current_loan_amount").value);
+  let currentLoanTerm = parseFloat(document.getElementById("loan_term").value);
+  let yearsPassed = parseFloat(document.getElementById("years_passed").value);
+  let currentInterestRate = parseFloat(document.getElementById("interest_rate").value);
+  let currentEuribor = parseFloat(document.getElementById("euribor").value);
+  let newLoanTerm = parseFloat(document.getElementById("new_loan_term").value);
+  let newInterestRate = parseFloat(document.getElementById("new_interest_rate").value);
+
+  let calcObj = {
+    currentLoanAmount: currentLoanAmount,
+    currentLoanTerm: currentLoanTerm,
+    yearsPassed: yearsPassed,
+    currentInterestRate: currentInterestRate,
+    currentEuribor: currentEuribor,
+    newLoanTerm: newLoanTerm,
+    newInterestRate: newInterestRate
+  }
+
+  return calcObj;
+}
+
+function calculateMonthlyPayment(monthlyInterestRate, loanTermMonths, loanAmount) {
+    return (monthlyInterestRate * loanAmount) /  (1 - Math.pow(1 + monthlyInterestRate, -loanTermMonths));
+}
+
+function calculateRemainingBalance(loanAmount, monthlyInterestRate, monthsPassed, monthlyPayment) {
+    return (loanAmount * Math.pow(1 + monthlyInterestRate, monthsPassed)) - 
+           ((monthlyPayment * (Math.pow(1 + monthlyInterestRate, monthsPassed) - 1)) / monthlyInterestRate);
+}
+
+
+function calcRefinance() {
+  event.preventDefault();
+
+  let dataObj = getRefinanceData();
+  const {currentLoanAmount, currentLoanTerm, yearsPassed, currentInterestRate, currentEuribor, newLoanTerm, newInterestRate} = dataObj;
+  
+  console.log("Current Loan Amount: " + currentLoanAmount +
+    "\nCurrent Loan Term: " + currentLoanTerm +
+    "\nYears Passed: " + yearsPassed +
+    "\nCurrent Interest Rate: " + currentInterestRate +
+    "\nCurrent Euribor: " + currentEuribor + 
+    "\nNew Loan Term: " + newLoanTerm +
+    "\nNew Interest Rate: " + newInterestRate);
+
+  //in react app user will input this value
+  let yearsLeft = currentLoanTerm - yearsPassed; 
+  let monthsPassed = yearsPassed * 12; 
+  let remainingMonths = yearsLeft * 12; 
+  
+
+  let monthlyInterestRate = (currentInterestRate + currentEuribor) /  100  / 12;
+  let newMonthlyInterestRate = (newInterestRate + currentEuribor) / 100 / 12;
+  console.log("Monthly Interest Rate: " + monthlyInterestRate
+          + "\nNew Monthly Interest Rate: " + newMonthlyInterestRate
+  );
+
+  let monthlyPayment = calculateMonthlyPayment(monthlyInterestRate, currentLoanTerm * 12, currentLoanAmount);  
+  console.log("Monthly Payment: " + monthlyPayment);
+  
+  let totalPaidInGivenYears = monthlyPayment * monthsPassed;
+  console.log("Total Repaid Amount: " + totalPaidInGivenYears);
+  
+  let remainingBalance = calculateRemainingBalance(currentLoanAmount, monthlyInterestRate, monthsPassed, monthlyPayment);
+  console.log("Remaining Balance: " + remainingBalance);
+
+  let newMonthlyPayment = calculateMonthlyPayment(newMonthlyInterestRate, newLoanTerm * 12, remainingBalance);
+  console.log("New Monthly Payment: " + newMonthlyPayment); 
+
+  let monthlyPaymentWithoutCommission = monthlyPayment - newMonthlyPayment;
+  console.log("Total Monthly Saving: " + monthlyPaymentWithoutCommission);
+
+  let totalLoanCost = monthlyPayment * (currentLoanTerm * 12);
+  console.log("Total Loan Cost: " + totalLoanCost);
+
+  let newTotalLoanCost = (newLoanTerm * 12) * newMonthlyPayment + totalPaidInGivenYears;
+  console.log("Total Repaid Amount: " + newTotalLoanCost);
+
+  let savingsWithoutCommission = totalLoanCost - newTotalLoanCost;
+  console.log("Total Savings: " + savingsWithoutCommission);
+
+  let commissionsFee = savingsWithoutCommission * 0.15;
+  console.log("Commissions Fee: " + commissionsFee);
+
+  let totalSaved = savingsWithoutCommission - commissionsFee;
+  console.log("Total Saved: " + totalSaved);
+
+  let totalMonthlySavings = monthlyPaymentWithoutCommission - (commissionsFee / (newLoanTerm * 12));
+  console.log("Total Monthly Savings: " + totalMonthlySavings);
+  
+  return false;
 }

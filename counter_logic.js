@@ -101,6 +101,7 @@ function calculatePreliminaryMaxLoanSum(monthlyInterestRate, numberOfPayments, m
     if (monthlyInterestRate === 0) {
         return maxMonthlyPayment * numberOfPayments; // No need to negate
     } else {
-        return (maxMonthlyPayment * (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments)) / monthlyInterestRate);
+        return (maxMonthlyPayment * (1 - Math.pow(1 + monthlyInterestRate, - numberOfPayments)) / monthlyInterestRate);
     }
 }
+
