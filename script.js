@@ -183,10 +183,13 @@ function calcRefinance() {
   console.log("Monthly Payment: " + monthlyPayment);
   
   let totalPaidInGivenYears = monthlyPayment * monthsPassed;
-  console.log("Total Repaid Amount: " + totalPaidInGivenYears);
+  console.log("Total Paid in Given Years: " + totalPaidInGivenYears);
   
   let remainingBalance = calculateRemainingBalance(currentLoanAmount, monthlyInterestRate, monthsPassed, monthlyPayment);
-  console.log("Remaining Balance: " + remainingBalance);
+  console.log("Remaining Balance after Given Years: " + remainingBalance);
+  
+  let totalLoanCost = monthlyPayment * (currentLoanTerm * 12);
+  console.log("Total Repaid Amount: " + totalLoanCost);
 
   let newMonthlyPayment = calculateMonthlyPayment(newMonthlyInterestRate, newLoanTerm * 12, remainingBalance);
   console.log("New Monthly Payment: " + newMonthlyPayment); 
@@ -194,23 +197,20 @@ function calcRefinance() {
   let monthlyPaymentWithoutCommission = monthlyPayment - newMonthlyPayment;
   console.log("Total Monthly Saving: " + monthlyPaymentWithoutCommission);
 
-  let totalLoanCost = monthlyPayment * (currentLoanTerm * 12);
-  console.log("Total Loan Cost: " + totalLoanCost);
-
   let newTotalLoanCost = (newLoanTerm * 12) * newMonthlyPayment + totalPaidInGivenYears;
   console.log("Total Repaid Amount: " + newTotalLoanCost);
 
   let savingsWithoutCommission = totalLoanCost - newTotalLoanCost;
-  console.log("Total Savings: " + savingsWithoutCommission);
+  console.log("Total saved amount(without commission): " + savingsWithoutCommission);
 
   let commissionsFee = savingsWithoutCommission * 0.15;
-  console.log("Commissions Fee: " + commissionsFee);
+  console.log("Contract fee/commission fee: " + commissionsFee);
 
   let totalSaved = savingsWithoutCommission - commissionsFee;
-  console.log("Total Saved: " + totalSaved);
+  console.log("Total saved amount after other fees: " + totalSaved);
 
   let totalMonthlySavings = monthlyPaymentWithoutCommission - (commissionsFee / (newLoanTerm * 12));
-  console.log("Total Monthly Savings: " + totalMonthlySavings);
+  console.log("Monthly savings after all fees: " + totalMonthlySavings);
   
   return false;
 }
