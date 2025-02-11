@@ -173,8 +173,8 @@ function calcRefinance() {
   let remainingMonths = yearsLeft * 12; 
   
 
-  let monthlyInterestRate = (currentInterestRate + currentEuribor) /  100  / 12;
-  let newMonthlyInterestRate = (newInterestRate + currentEuribor) / 100 / 12;
+  let monthlyInterestRate = ((currentInterestRate + currentEuribor) /  100  / 12);
+  let newMonthlyInterestRate = ((newInterestRate + currentEuribor) / 100 / 12);
   console.log("Monthly Interest Rate: " + monthlyInterestRate
           + "\nNew Monthly Interest Rate: " + newMonthlyInterestRate
   );
@@ -206,11 +206,12 @@ function calcRefinance() {
   let commissionsFee = savingsWithoutCommission * 0.15;
   console.log("Contract fee/commission fee: " + commissionsFee);
 
-  let totalSaved = savingsWithoutCommission - commissionsFee;
-  console.log("Total saved amount after other fees: " + totalSaved);
+  // round up all values that are going to be displayed with math.round or toFixed(2)
+  let totalSaved = (savingsWithoutCommission - commissionsFee);
+  console.log("Total saved amount after other fees: " + totalSaved.toFixed(2));
 
   let totalMonthlySavings = monthlyPaymentWithoutCommission - (commissionsFee / (newLoanTerm * 12));
-  console.log("Monthly savings after all fees: " + totalMonthlySavings);
+  console.log("Monthly savings after all fees: " + (Math.round(totalMonthlySavings * 100) / 100));
   
   return false;
 }
