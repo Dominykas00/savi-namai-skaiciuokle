@@ -68,7 +68,7 @@ function getInformationForMaxLoanSum() {
   let numberOfPayments = loanTerm * 12;
   let monthlyInterestRate = (euribor + interestRate) / 100 / 12; // Convert to decimal and then divide by 12 for monthly rate
 
-  const maxMonthlyPayment = calculateMaxMonthlyPayment(householdIncome, householdObligations, maxDTI, balanceAfterExpenses);
+  const maxMonthlyPayment = calculateMaxMonthlyPayment(householdIncome, householdObligations, houseHoldLivelihoodCosts);
   const preliminaryMaxLoanSum = calculatePreliminaryMaxLoanSum(monthlyInterestRate, numberOfPayments, maxMonthlyPayment);
   // finish of the func
   console.log(preliminaryMaxLoanSum);

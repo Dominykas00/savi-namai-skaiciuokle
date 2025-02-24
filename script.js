@@ -59,12 +59,13 @@ function calculateMaxSum() {
       break;
     }
   }
+  
   let houseHoldLivelihoodCosts = 360;
   
   if (maritalStatus == 'true'){
     numberOfDependance ++
   }
-
+  
   if(numberOfDependance > 0){
     houseHoldLivelihoodCosts = calculateLivelihoodCosts(houseHoldLivelihoodCosts, numberOfDependance)
   }
@@ -75,14 +76,13 @@ function calculateMaxSum() {
   let numberOfPayments = loanTerm * 12;
   let monthlyInterestRate = (euribor + interestRate) / 100 / 12; // Convert to decimal and then divide by 12 for monthly rate
 
-  const maxMonthlyPayment = calculateMaxMonthlyPayment(householdIncome, householdObligations, maxDTI, balanceAfterExpenses);
+  const maxMonthlyPayment = calculateMaxMonthlyPayment(householdIncome, householdObligations, houseHoldLivelihoodCosts);
   const preliminaryMaxLoanSum = calculatePreliminaryMaxLoanSum(monthlyInterestRate, numberOfPayments, maxMonthlyPayment);
   
   showMaxLoanSumResult(preliminaryMaxLoanSum);
 }
 
 function calculateLivelihoodCosts(houseHoldLivelihoodCosts, numberOfDependance) {
-
   if (numberOfDependance > 2) {
     numberOfDependance--;
     let otherDependance = 108 * numberOfDependance
@@ -97,7 +97,7 @@ function calculateLivelihoodCosts(houseHoldLivelihoodCosts, numberOfDependance) 
 
 }
 
-function calculateMaxMonthlyPayment(householdIncome, householdObligations, maxDTI, balanceAfterExpenses) {  
+function calculateMaxMonthlyPayment(householdIncome, householdObligations, houseHoldLivelihoodCosts) {  
   // Calculate the maximum payment based on DTI
   // const maxPaymentDTI = (householdIncome - householdObligations) * (maxDTI / 100);
   if (householdIncome - (householdIncome * 0.4) > houseHoldLivelihoodCosts) {
